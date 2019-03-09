@@ -10,6 +10,8 @@ $('#titlesticky, #titlecross').click(function(){
 
 var tableOfContents = {
 
+  updateTimeoutHandler: null,
+
   enable: function(){
     var width = 180,
         right = 180;
@@ -133,7 +135,9 @@ var tableOfContents = {
   },
 
   update: function(rep){
-    tableOfContents.getPadHTML(rep);
+    var updateHTML = tableOfContents.getPadHTML.bind(null, rep);
+    window.clearTimeout(tableOfContents.updateTimeoutHandler);
+    tableOfContents.updateTimeoutHandler = window.setTimeout(updateHTML, 1000);
   },
 
   scroll: function(newY){
